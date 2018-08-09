@@ -37,7 +37,9 @@
 
 ### Add BitmovinPlayer iOS SDK
 
-Add pod `'BitmovinPlayer', git: 'https://github.com/bitmovin/bitmovin-player-ios-sdk-cocoapod.git', tag: '2.11.0'` to your Podfile.
+Add line to your Podfile
+
+`pod 'BitmovinPlayer', git: 'https://github.com/bitmovin/bitmovin-player-ios-sdk-cocoapod.git', tag: '2.11.0'`.
 
 After that, install the pod using `pod install`.
 
