@@ -1,0 +1,27 @@
+
+{
+  "name": "react-native-bitmovin-player",
+  "version": "1.0.0",
+  "description": "Bitmovin player React Native module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xxsnakerxx/react-native-bitmovin-player.git"
+  },
+  "keywords": [
+    "react-native",
+    "module",
+    "bitmovin",
+    "player",
+    "video"
+  ],
+  "author": "Dmitriy Kolesnikov <xxsnakerxx@gmail.com> (https://github.com/xxsnakerxx)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/xxsnakerxx/react-native-bitmovin-player/issues"
+  },
+  "homepage": "https://github.com/xxsnakerxx/react-native-bitmovin-player#readme"
+}
