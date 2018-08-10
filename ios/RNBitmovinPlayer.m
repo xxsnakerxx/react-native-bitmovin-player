@@ -21,7 +21,6 @@
 }
 
 - (void)setConfiguration:(NSDictionary *)config {
-    RCTLog(@"configuration -> %@", config);
     BMPPlayerConfiguration *configuration = [BMPPlayerConfiguration new];
     
     if (!config[@"source"] || !config[@"source"][@"url"]) return;
@@ -95,6 +94,10 @@
 
 - (void)pause {
     [_player pause];
+}
+
+- (void)seek:(double)time {
+    [_player seek:time];
 }
 
 - (void)mute {

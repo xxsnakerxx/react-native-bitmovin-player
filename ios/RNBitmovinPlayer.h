@@ -24,4 +24,12 @@
 @property (nonatomic, copy) RCTBubblingEventBlock onMuted;
 @property (nonatomic, copy) RCTBubblingEventBlock onUnmuted;
 
+- (void)play;
+- (void)pause;
+- (void)seek:(double)time;
+- (void)mute;
+- (void)unmute;
+- (void)enterFullscreen;
+- (void)exitFullscreen;
+
 @end

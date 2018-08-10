@@ -2,9 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
+  findNodeHandle,
+  NativeModules,
   ViewPropTypes,
   requireNativeComponent,
 } from 'react-native';
+
+const { RNBitmovinPlayerManager } = NativeModules;
 
 const EMPTY_FN = () => {};
 
@@ -74,6 +78,40 @@ class BitmovinPlayer extends React.Component {
     onControlsHide: EMPTY_FN,
   }
 
+  play = () => {
+    RNBitmovinPlayerManager.play(findNodeHandle(this._player));
+  }
+
+  pause = () => {
+    RNBitmovinPlayerManager.pause(findNodeHandle(this._player));
+  }
+
+  seek = (time) => {
+    const seekTime = parseFloat(time);
+
+    if (seekTime) {
+      RNBitmovinPlayerManager.seek(findNodeHandle(this._player), seekTime);
+    }
+  }
+
+  mute = () => {
+    RNBitmovinPlayerManager.mute(findNodeHandle(this._player));
+  }
+
+  unmute = () => {
+    RNBitmovinPlayerManager.unmute(findNodeHandle(this._player));
+  }
+
+  enterFullscreen = () => {
+    RNBitmovinPlayerManager.enterFullscreen(findNodeHandle(this._player));
+  }
+
+  exitFullscreen = () => {
+    RNBitmovinPlayerManager.exitFullscreen(findNodeHandle(this._player));
+  }
+
+  _setRef = (ref) => { this._player = ref; }
+
   render() {
     const {
       style,
@@ -82,6 +120,7 @@ class BitmovinPlayer extends React.Component {
 
     return (
       <RNBitmovinPlayer
+        ref={this._setRef}
         {...this.props}
         configuration={{
           ...DEFAULT_CONFIGURATION,
@@ -89,7 +128,7 @@ class BitmovinPlayer extends React.Component {
         }}
         style={[
           {
-            backgroundColor: 'black'
+            backgroundColor: 'black',
           },
           style,
         ]}
