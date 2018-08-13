@@ -1,6 +1,6 @@
 # react-native-bitmovin-player
 
-![npm (scoped)](https://img.shields.io/npm/v/react-native-bitmovin-player.svg)![npm](https://img.shields.io/npm/dt/react-native-bitmovin-player.svg)![NpmLicense](https://img.shields.io/npm/l/react-native-bitmovin-player.svg)
+![npm (scoped)](https://img.shields.io/npm/v/react-native-bitmovin-player.svg)&nbsp;&nbsp;![npm](https://img.shields.io/npm/dt/react-native-bitmovin-player.svg)&nbsp;&nbsp;![NpmLicense](https://img.shields.io/npm/l/react-native-bitmovin-player.svg)
 
 
 
