@@ -84,7 +84,7 @@ Your player license key can be found when logging in into https://dashboard.bitm
 
 ## Usage
 ```javascript
-import RNBitmovinPlayer from 'react-native-bitmovin-player';
+import BitmovinPlayer from 'react-native-bitmovin-player';
 
 // please follow to index.js for available props
 <BitmovinPlayer
