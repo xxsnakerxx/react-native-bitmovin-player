@@ -5,7 +5,7 @@
 
 @synthesize bridge = _bridge;
 
-RCT_EXPORT_MODULE()
+RCT_EXPORT_MODULE(RNBitmovinPlayer);
 
 - (UIView *)view
 {
@@ -34,74 +34,201 @@ RCT_EXPORT_VIEW_PROPERTY(onRenderFirstFrame, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onPlayerError, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onMuted, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onUnmuted, RCTBubblingEventBlock);
+RCT_EXPORT_VIEW_PROPERTY(onSeek, RCTBubblingEventBlock);
+RCT_EXPORT_VIEW_PROPERTY(onSeeked, RCTBubblingEventBlock);
 
 RCT_EXPORT_METHOD(play:(nonnull NSNumber *)reactTag) {
-    RNBitmovinPlayer *player = [self.bridge.uiManager viewForReactTag:reactTag];
+    UIView *view = [self.bridge.uiManager viewForReactTag:reactTag];
     
-    if ([player isKindOfClass:[RNBitmovinPlayer class]]) {
+    if ([view isKindOfClass:[RNBitmovinPlayer class]]) {
+        BMPBitmovinPlayer *player = [(RNBitmovinPlayer*)view player];
+        
         [player play];
     } else {
-        RCTLogError(@"Cannot play: %@ (tag #%@) is not a RNBitmovinPlayer", player, reactTag);
+        RCTLogError(@"Cannot play: view with tag #%@ is not a RNBitmovinPlayer", reactTag);
     }
 }
 
 RCT_EXPORT_METHOD(pause:(nonnull NSNumber *)reactTag) {
-    RNBitmovinPlayer *player = [self.bridge.uiManager viewForReactTag:reactTag];
+    UIView *view = [self.bridge.uiManager viewForReactTag:reactTag];
     
-    if ([player isKindOfClass:[RNBitmovinPlayer class]]) {
+    if ([view isKindOfClass:[RNBitmovinPlayer class]]) {
+        BMPBitmovinPlayer *player = [(RNBitmovinPlayer*)view player];
+        
         [player pause];
     } else {
-        RCTLogError(@"Cannot pause: %@ (tag #%@) is not a RNBitmovinPlayer", player, reactTag);
+        RCTLogError(@"Cannot pause: view with tag #%@ is not a RNBitmovinPlayer", reactTag);
     }
 }
 
 RCT_EXPORT_METHOD(seek:(nonnull NSNumber *)reactTag time:(float)time) {
-    RNBitmovinPlayer *player = [self.bridge.uiManager viewForReactTag:reactTag];
+    UIView *view = [self.bridge.uiManager viewForReactTag:reactTag];
     
-    if ([player isKindOfClass:[RNBitmovinPlayer class]]) {
+    if ([view isKindOfClass:[RNBitmovinPlayer class]]) {
+        BMPBitmovinPlayer *player = [(RNBitmovinPlayer*)view player];
+        
         [player seek:time];
     } else {
-        RCTLogError(@"Cannot seek: %@ (tag #%@) is not a RNBitmovinPlayer", player, reactTag);
+        RCTLogError(@"Cannot seek: view with tag #%@ is not a RNBitmovinPlayer", reactTag);
     }
 }
 
 RCT_EXPORT_METHOD(mute:(nonnull NSNumber *)reactTag) {
-    RNBitmovinPlayer *player = [self.bridge.uiManager viewForReactTag:reactTag];
+    UIView *view = [self.bridge.uiManager viewForReactTag:reactTag];
     
-    if ([player isKindOfClass:[RNBitmovinPlayer class]]) {
+    if ([view isKindOfClass:[RNBitmovinPlayer class]]) {
+        BMPBitmovinPlayer *player = [(RNBitmovinPlayer*)view player];
+        
         [player mute];
     } else {
-        RCTLogError(@"Cannot mute: %@ (tag #%@) is not a RNBitmovinPlayer", player, reactTag);
+        RCTLogError(@"Cannot mute: view with tag #%@ is not a RNBitmovinPlayer", reactTag);
     }
 }
 
 RCT_EXPORT_METHOD(unmute:(nonnull NSNumber *)reactTag) {
-    RNBitmovinPlayer *player = [self.bridge.uiManager viewForReactTag:reactTag];
+    UIView *view = [self.bridge.uiManager viewForReactTag:reactTag];
     
-    if ([player isKindOfClass:[RNBitmovinPlayer class]]) {
+    if ([view isKindOfClass:[RNBitmovinPlayer class]]) {
+        BMPBitmovinPlayer *player = [(RNBitmovinPlayer*)view player];
+        
         [player unmute];
     } else {
-        RCTLogError(@"Cannot unmute: %@ (tag #%@) is not a RNBitmovinPlayer", player, reactTag);
+        RCTLogError(@"Cannot unmute: view with tag #%@ is not a RNBitmovinPlayer", reactTag);
     }
 }
 
 RCT_EXPORT_METHOD(enterFullscreen:(nonnull NSNumber *)reactTag) {
-    RNBitmovinPlayer *player = [self.bridge.uiManager viewForReactTag:reactTag];
+    UIView *view = [self.bridge.uiManager viewForReactTag:reactTag];
     
-    if ([player isKindOfClass:[RNBitmovinPlayer class]]) {
-        [player enterFullscreen];
+    if ([view isKindOfClass:[RNBitmovinPlayer class]]) {
+        BMPBitmovinPlayerView *playerView = [(RNBitmovinPlayer*)view playerView];
+        
+        [playerView enterFullscreen];
     } else {
-        RCTLogError(@"Cannot enterFullscreen: %@ (tag #%@) is not a RNBitmovinPlayer", player, reactTag);
+        RCTLogError(@"Cannot enterFullscreen: view with tag #%@ is not a RNBitmovinPlayer", reactTag);
     }
 }
 
 RCT_EXPORT_METHOD(exitFullscreen:(nonnull NSNumber *)reactTag) {
-    RNBitmovinPlayer *player = [self.bridge.uiManager viewForReactTag:reactTag];
+    UIView *view = [self.bridge.uiManager viewForReactTag:reactTag];
     
-    if ([player isKindOfClass:[RNBitmovinPlayer class]]) {
-        [player exitFullscreen];
+    if ([view isKindOfClass:[RNBitmovinPlayer class]]) {
+        BMPBitmovinPlayerView *playerView = [(RNBitmovinPlayer*)view playerView];
+        
+        [playerView exitFullscreen];
     } else {
-        RCTLogError(@"Cannot exitFullscreen: %@ (tag #%@) is not a RNBitmovinPlayer", player, reactTag);
+        RCTLogError(@"Cannot exitFullscreen: view with tag #%@ is not a RNBitmovinPlayer", reactTag);
+    }
+}
+
+RCT_EXPORT_METHOD(getCurrentTime:(nonnull NSNumber *)reactTag
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject) {
+    UIView *view = [self.bridge.uiManager viewForReactTag:reactTag];
+    
+    if ([view isKindOfClass:[RNBitmovinPlayer class]]) {
+        BMPBitmovinPlayer *player = [(RNBitmovinPlayer*)view player];
+        
+        resolve(@(player.currentTime));
+    } else {
+        RCTLogError(@"Cannot getCurrentTime: view with tag #%@ is not a RNBitmovinPlayer", reactTag);
+    }
+}
+
+RCT_EXPORT_METHOD(getDuration:(nonnull NSNumber *)reactTag
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject) {
+    UIView *view = [self.bridge.uiManager viewForReactTag:reactTag];
+    
+    if ([view isKindOfClass:[RNBitmovinPlayer class]]) {
+        BMPBitmovinPlayer *player = [(RNBitmovinPlayer*)view player];
+        
+        resolve(@(player.duration));
+    } else {
+        RCTLogError(@"Cannot getDuration: view with tag #%@ is not a RNBitmovinPlayer", reactTag);
+    }
+}
+
+RCT_EXPORT_METHOD(getVolume:(nonnull NSNumber *)reactTag
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject) {
+    UIView *view = [self.bridge.uiManager viewForReactTag:reactTag];
+    
+    if ([view isKindOfClass:[RNBitmovinPlayer class]]) {
+        BMPBitmovinPlayer *player = [(RNBitmovinPlayer*)view player];
+        
+        resolve(@(player.volume));
+    } else {
+        RCTLogError(@"Cannot getVolume: view with tag #%@ is not a RNBitmovinPlayer", reactTag);
+    }
+}
+
+RCT_EXPORT_METHOD(setVolume:(nonnull NSNumber *)reactTag
+                  volume:(int)volume) {
+    UIView *view = [self.bridge.uiManager viewForReactTag:reactTag];
+    
+    if ([view isKindOfClass:[RNBitmovinPlayer class]]) {
+        BMPBitmovinPlayer *player = [(RNBitmovinPlayer*)view player];
+        
+        player.volume = volume;
+    } else {
+        RCTLogError(@"Cannot setVolume: view with tag #%@ is not a RNBitmovinPlayer", reactTag);
+    }
+}
+
+RCT_EXPORT_METHOD(isPaused:(nonnull NSNumber *)reactTag
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject) {
+    UIView *view = [self.bridge.uiManager viewForReactTag:reactTag];
+    
+    if ([view isKindOfClass:[RNBitmovinPlayer class]]) {
+        BMPBitmovinPlayer *player = [(RNBitmovinPlayer*)view player];
+        
+        resolve(@(player.isPaused));
+    } else {
+        RCTLogError(@"Cannot isPaused: view with tag #%@ is not a RNBitmovinPlayer", reactTag);
+    }
+}
+
+RCT_EXPORT_METHOD(isMuted:(nonnull NSNumber *)reactTag
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject) {
+    UIView *view = [self.bridge.uiManager viewForReactTag:reactTag];
+    
+    if ([view isKindOfClass:[RNBitmovinPlayer class]]) {
+        BMPBitmovinPlayer *player = [(RNBitmovinPlayer*)view player];
+        
+        resolve(@(player.isMuted));
+    } else {
+        RCTLogError(@"Cannot isMuted: view with tag #%@ is not a RNBitmovinPlayer", reactTag);
+    }
+}
+
+RCT_EXPORT_METHOD(isStalled:(nonnull NSNumber *)reactTag
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject) {
+    UIView *view = [self.bridge.uiManager viewForReactTag:reactTag];
+    
+    if ([view isKindOfClass:[RNBitmovinPlayer class]]) {
+         // BMPBitmovinPlayer *player = [(RNBitmovinPlayer*)view player];
+        
+        resolve(@(NO));
+    } else {
+        RCTLogError(@"Cannot isStalled: view with tag #%@ is not a RNBitmovinPlayer", reactTag);
+    }
+}
+
+RCT_EXPORT_METHOD(isPlaying:(nonnull NSNumber *)reactTag
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject) {
+    UIView *view = [self.bridge.uiManager viewForReactTag:reactTag];
+    
+    if ([view isKindOfClass:[RNBitmovinPlayer class]]) {
+        BMPBitmovinPlayer *player = [(RNBitmovinPlayer*)view player];
+        
+        resolve(@(player.isPlaying));
+    } else {
+        RCTLogError(@"Cannot isPlaying: view with tag #%@ is not a RNBitmovinPlayer", reactTag);
     }
 }
 

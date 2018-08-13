@@ -3,14 +3,17 @@
 #import <React/RCTView.h>
 
 @implementation RNBitmovinPlayer {
-    BMPBitmovinPlayer *_player;
-    BMPBitmovinPlayerView *_playerView;
-    
     BOOL _fullscreen;
 }
 
+@synthesize player = _player;
+@synthesize playerView = _playerView;
+
 - (void)dealloc {
     [_player destroy];
+    
+    _player = nil;
+    _playerView = nil;
 }
 
 - (instancetype)init {
@@ -66,7 +69,7 @@
     
     [_playerView addUserInterfaceListener:self];
 
-    if ([config[@"supportFullscreen"] boolValue]) {
+    if ([config[@"style"][@"fullscreenIcon"] boolValue]) {
         _playerView.fullscreenHandler = self;
     }
     
@@ -85,52 +88,6 @@
 
 - (void)onFullscreenExitRequested {
     _fullscreen = NO;
-}
-
-#pragma mark BMPPlayerAPI
-- (void)play {
-    [_player play];
-}
-
-- (void)pause {
-    [_player pause];
-}
-
-- (void)seek:(double)time {
-    [_player seek:time];
-}
-
-- (void)mute {
-    [_player mute];
-}
-
-- (void)unmute {
-    [_player unmute];
-}
-
-#pragma mark BMPUserInterfaceAPI
-- (void)enterFullscreen {
-    [_playerView enterFullscreen];
-}
-
-- (void)exitFullscreen {
-    [_playerView exitFullscreen];
-}
-
-#pragma mark BMPUserInterfaceListener
-- (void)onFullscreenEnter:(BMPFullscreenEnterEvent *)event {
-    _onFullscreenEnter(@{});
-}
-
-- (void)onFullscreenExit:(BMPFullscreenExitEvent *)event {
-    _onFullscreenExit(@{});
-}
-- (void)onControlsShow:(BMPControlsShowEvent *)event {
-    _onControlsShow(@{});
-}
-
-- (void)onControlsHide:(BMPControlsHideEvent *)event {
-    _onControlsHide(@{});
 }
 
 #pragma mark BMPPlayerListener
@@ -187,6 +144,33 @@
 
 - (void)onUnmuted:(BMPUnmutedEvent *)event {
     _onUnmuted(@{});
+}
+
+- (void)onSeek:(BMPSeekEvent *)event {
+    _onSeek(@{
+              @"seekTarget": @(event.seekTarget),
+              @"position": @(event.position),
+              });
+}
+
+- (void)onSeeked:(BMPSeekedEvent *)event {
+    _onSeeked(@{});
+}
+
+#pragma mark BMPUserInterfaceListener
+- (void)onFullscreenEnter:(BMPFullscreenEnterEvent *)event {
+    _onFullscreenEnter(@{});
+}
+
+- (void)onFullscreenExit:(BMPFullscreenExitEvent *)event {
+    _onFullscreenExit(@{});
+}
+- (void)onControlsShow:(BMPControlsShowEvent *)event {
+    _onControlsShow(@{});
+}
+
+- (void)onControlsHide:(BMPControlsHideEvent *)event {
+    _onControlsHide(@{});
 }
 
 @end

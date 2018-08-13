@@ -3,6 +3,9 @@
 
 @interface RNBitmovinPlayer : UIView <BMPPlayerListener, BMPUserInterfaceListener, BMPFullscreenHandler>
 
+@property (nonatomic, strong) BMPBitmovinPlayer *player;
+@property (nonatomic, strong) BMPBitmovinPlayerView *playerView;
+
 @property (readonly, getter=isFullscreen, nonatomic) BOOL fullscreen;
 
 @property (nonatomic, copy) NSDictionary *configuration;
@@ -23,13 +26,7 @@
 @property (nonatomic, copy) RCTBubblingEventBlock onPlayerError;
 @property (nonatomic, copy) RCTBubblingEventBlock onMuted;
 @property (nonatomic, copy) RCTBubblingEventBlock onUnmuted;
-
-- (void)play;
-- (void)pause;
-- (void)seek:(double)time;
-- (void)mute;
-- (void)unmute;
-- (void)enterFullscreen;
-- (void)exitFullscreen;
+@property (nonatomic, copy) RCTBubblingEventBlock onSeek;
+@property (nonatomic, copy) RCTBubblingEventBlock onSeeked;
 
 @end

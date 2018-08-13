@@ -20,7 +20,7 @@
 3. In XCode, in the project navigator, select your project. Add `libRNBitmovinPlayer.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
 4. Run your project (`Cmd+R`)
 
-#### Android (Not Ready Yet)
+#### Android
 
 1. Open up `android/app/src/main/java/[...]/MainActivity.java`
   - Add `import com.xxsnakerxx.RNBitmovinPlayerPackage;` to the imports at the top of the file
@@ -43,19 +43,41 @@ Add line to your Podfile
 
 After that, install the pod using `pod install`.
 
+### Add BitmovinPlayer Android SDK
+
+Add a link to our release repository to your __application's__ `build.gradle` file. In addition to that, the google maven repository must be added.
+
+```
+allprojects {
+    repositories {
+        ...
+        google()
+        maven {
+            url 'http://bitmovin.bintray.com/maven'
+        }
+    }
+}
+```
+
 ### Setup Project
+
+Add the Bundle identifier of the iOS application which is using the SDK as an allowed domain to the       Bitmovin licensing backend. This can also be done under `Player -> Licenses` when logging in into https://dashboard.bitmovin.com with your account.
+
+When you do not do this, you'll get a license error when starting the application which contains the player.
 
 #### iOS
 
-- Add your Bitmovin player license key to the `Info.plist` file as __BitmovinPlayerLicenseKey__.
+Add your Bitmovin player license key to the `Info.plist` file as __BitmovinPlayerLicenseKey__.
 
-  Your player license key can be found when logging in into https://dashboard.bitmovin.com and navigating to `Player -> Licenses`.
+#### Android
 
-- Add the Bundle identifier of the iOS application which is using the SDK as an allowed domain to the Bitmovin licensing backend. This can also be done under Player -> Licenses when logging in into https://dashboard.bitmovin.com with your account.
+Add your Bitmovin player license key to the `AndroidManifest.xml`.
 
-  When you do not do this, you'll get a license error when starting the application which contains the player.
+```xml
+<meta-data android:name="BITMOVIN_PLAYER_LICENSE_KEY" android:value="YOUR_KEY_HERE" />
+```
 
-#### Android (Not Ready Yet)
+Your player license key can be found when logging in into https://dashboard.bitmovin.com and navigating to `Player -> Licenses`.
 
 ## Usage
 ```javascript
