@@ -41,7 +41,7 @@
 
 Add line to your Podfile
 
-`pod 'BitmovinPlayer', git: 'https://github.com/bitmovin/bitmovin-player-ios-sdk-cocoapod.git', tag: '2.11.0'`.
+`pod 'BitmovinPlayer', git: 'https://github.com/bitmovin/bitmovin-player-ios-sdk-cocoapod.git', tag: '2.18.0'`.
 
 After that, install the pod using `pod install`.
 
