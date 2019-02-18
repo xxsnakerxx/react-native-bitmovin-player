@@ -3,8 +3,7 @@
 ![npm (scoped)](https://img.shields.io/npm/v/react-native-bitmovin-player.svg)&nbsp;&nbsp;![npm](https://img.shields.io/npm/dt/react-native-bitmovin-player.svg)&nbsp;&nbsp;![NpmLicense](https://img.shields.io/npm/l/react-native-bitmovin-player.svg)
 
 
-
-![logo](https://theme.zdassets.com/theme_assets/2003534/6f68a0e835ddfda9be0302986dc3b37e44f7d3c5.png)
+#### Attention! This plugin is not official, the code is not provided or maintained by [Bitmovin](https://bitmovin.com)!
 
 ## Getting started
 
