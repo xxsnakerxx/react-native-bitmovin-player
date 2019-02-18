@@ -1,5 +1,5 @@
 #import <React/UIView+React.h>
-#import <BitmovinPlayer.h>
+#import <BitmovinPlayer/BitmovinPlayer.h>
 
 @interface RNBitmovinPlayer : UIView <BMPPlayerListener, BMPUserInterfaceListener, BMPFullscreenHandler>
 
